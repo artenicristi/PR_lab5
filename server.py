@@ -27,10 +27,7 @@ def broadcast():
                 clients.append(addr)
             for client in clients:
                 try:
-                    if message.decode().startswith('SIGNUP_TAG:'):
-                        name = message.decode()[message.decode.index(':') + 1:]
-                        server.sendto(f'{name} joined'.encode(), client)
-                    else:
+                    if not message.decode().startswith('SIGNUP_TAG:'):
                         server.sendto(message, client)
                 except:
                     clients.remove(client)
@@ -41,3 +38,5 @@ t2 = threading.Thread(target=broadcast)
 
 t1.start()
 t2.start()
+
+print('The chat is open ...')
